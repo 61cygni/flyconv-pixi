@@ -1,0 +1,31 @@
+Get code: 
+
+%git clone https://github.com/61cygni/flyconv-pixi
+%npm install pixi.js
+%npm install convex
+%npm install vite
+
+
+# Run vite development server for local dev
+
+%npx convex dev 
+#in a separate terminal
+%npm run dev
+
+# Compile to get ready for production 
+
+%npx convex deploy
+%npm run build
+
+# test on local host
+
+%npm run serve
+
+# deploy to Fly.io
+
+% flyctl launch
+# answer Yes to using the fly.toml
+
+% fly open 
+# view!
+
