@@ -1,0 +1,64 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlyConv Example with Pixi.js!</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+    </script>
+
+    <script type="module" src="/counter.js"></script>
+
+    <script type="module">
+
+    // Initialize Pixi.js and Convex 
+    import * as PIXI from 'pixi.js';
+    import { set_g_title_str, init_and_update_counter} from "/counter.js";
+
+    let FONT_SIZE      = 16; // px  
+    let SCREEN_WIDTH   = 1024; // px
+    let SCREEN_HEIGHT  = 768;
+
+    let type = "WebGL";
+    if (!PIXI.utils.isWebGLSupported()) {
+        type = "canvas";
+    }
+    let pixi_app =  new PIXI.Application({width: SCREEN_WIDTH, height: SCREEN_HEIGHT});
+
+    // initialize Convex, and increment visitor counter by 1
+    init_and_update_counter();
+
+    // //Add the canvas that Pixi automatically created for you to the HTML document
+    document.body.appendChild(pixi_app.view);
+
+    const title_text_sty = new PIXI.TextStyle({
+      fontFamily: "Courier",
+      fontSize: FONT_SIZE- 2,
+      fill: "green",
+      fontWeight : "bolder"
+    });
+
+    let title_string  = "0";
+    let pixi_title   = new PIXI.Text(title_string, title_text_sty);
+    let title_x_offset = Math.floor((SCREEN_WIDTH - pixi_title.width) / 2);
+    let title_y_offset = Math.floor((SCREEN_HEIGHT - (2*pixi_title.height)) / 2);
+    pixi_title.x = title_x_offset;
+    pixi_title.y = title_y_offset;
+    pixi_app.stage.addChild(pixi_title);
+
+    // Allows counter.js to update the string every time the counter
+    // changes.
+    set_g_title_str(pixi_title);
+
+    let elapsed = 0.0;
+    pixi_app.ticker.add((delta) => {
+        elapsed += delta;
+        pixi_title.x = ((SCREEN_WIDTH/2)-(pixi_title.width/1.5)) + Math.cos(elapsed/50.0) * 200;
+    });
+
+  </script>
+  </body>
+</html>

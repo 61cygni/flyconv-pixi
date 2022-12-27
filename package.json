@@ -1,0 +1,15 @@
+{
+  "name": "flyconv",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite src/",
+    "build": "rm -rf dist && vite build src/ && cp -R src/dist/* public/",
+    "clean": "",
+    "serve": "vite preview src/"
+  },
+  "dependencies": {
+    "convex": "^0.6.0",
+    "pixi.js": "^7.0.5",
+    "vite": "^4.0.3"
+  }
+}
